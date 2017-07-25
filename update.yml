@@ -5,5 +5,7 @@
  
   tasks:
  
-  - name: Update
-    shell: yum -y update
+- name: upgrade all packages
+  yum:
+    name: '*'
+    state: latest
