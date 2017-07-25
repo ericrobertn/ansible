@@ -4,7 +4,9 @@
   hosts: all
  
   tasks:
- 
+- name: clean yum
+    sudo: yes
+    command: yum clean all 
 - name: upgrade all packages
   yum:
     name: '*'
