@@ -1,0 +1,9 @@
+
+---
+- name: Hello World!
+  hosts: all
+ 
+  tasks:
+ 
+  - name: Update
+    shell: yum -y update
