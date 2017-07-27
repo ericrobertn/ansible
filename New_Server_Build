@@ -1,0 +1,14 @@
+# set multiple lookup addresses on all visible adapters (usually physical adapters that are in the Up state), with debug logging to a file
+
+- win_dns_client:
+    adapter_names: "Ethernet*"
+    ipv4_addresses:
+    - 10.50.50.100
+    - 10.50.50.101
+    log_path: c:\dns_log.txt
+
+- win_updates:
+    category_names:
+      - SecurityUpdates
+      - CriticalUpdates
+      - UpdateRollups
