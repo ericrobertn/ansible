@@ -1,3 +1,4 @@
+---
 - name: Gather all registered virtual machines
   local_action:
     module: vmware_vm_facts
