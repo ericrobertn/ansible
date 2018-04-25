@@ -1,0 +1,35 @@
+- name: Cisco ASA access-list config
+  connection: local
+  hosts: firewall
+  gather_facts: false
+  vars:
+    cli:
+      username: "{{ username }}"
+      password: "{{ password }}"
+      host: "{{ device_ip }}"
+      authorize: yes
+      auth_pass: cisco
+  tasks:
+    - name: create object group
+      asa_config:
+        lines:
+          - network-object host 10.1.0.1
+          - network-object host 10.1.0.2
+          - network-object host 10.1.0.3
+        parents: ['object-group network dummy-group']
+        provider: "{{ cli }}"
+#      register: result
+
+    - name: configure access-list
+      asa_acl:
+        lines:
+          - access-list acl_inside extended permit tcp object-group dummy-group any eq www
+          - access-list acl_inside extended permit udp object-group dummy-group any eq domain
+          - access-list acl_inside extended deny ip any any
+        before: clear configure access-list acl_inside
+        match: strict
+        replace: block
+        provider: "{{ cli }}" 
+#      register: result
+
+    - debug: var=result
